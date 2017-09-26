@@ -1,1 +1,1 @@
-if 20 > 10 {println "hello"}
+if 10 == 12 {println 10} : {println "to"} : {println "tree"}

@@ -18,7 +18,9 @@ def expression_runf(p):
 
 @pg.production('expression : if expression expression')
 def expression_ifr(p):
-    print(p[2])
-    print(p[2].getstr())
     if(p[1].evalv() == True):
-        parser.parsetxt(p[2].getstr())
+        if(isinstance(p[2],typed.ListCodeBlock)):
+            for i in p[2].evalv():
+                parser.parsetxt(i)
+        else:
+            parser.parsetxt(p[2].evalv())

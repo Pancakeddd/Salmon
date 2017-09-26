@@ -45,6 +45,16 @@ class CodeBlock(BaseBox):
         return self.value
     def __eq__(self, other) :
         return self.__dict__ == other.__dict__
+class ListCodeBlock(BaseBox):
+    def __init__(self, value):
+        self.value = value
+
+    def eval(self):
+        return self.value
+    def evalv(self):
+        return self.value
+    def __eq__(self, other) :
+        return self.__dict__ == other.__dict__
 class VariableName(BaseBox):
     def __init__(self, value):
         self.value = value
@@ -67,12 +77,10 @@ def returntype(val):
 @pg.production('expression : number')
 def expression_number(p):
     return Number(int(p[0].getstr()))
-@pg.production('expression : lpar expression rpar')
+@pg.production('expression : codeblock')
 def expression_parenth(p):
-    return p[1]
-@pg.production('expression : codel expression coder')
-def expression_codeb(p):
-    return p[1]
+    st = p[0].getstr()[:-1][1:]
+    return CodeBlock(st)
 @pg.production('expression : string')
 def expression_str(p):
     st = p[0].getstr()[:-1][1:]
@@ -95,3 +103,11 @@ def expression_varname(p):
             print("Unexpected amount of arguments")
     else:
         return VariableName(p[0].getstr())
+@pg.production('expression : expression colon expression')
+def expression_colon(p):
+    if (isinstance(p[2],ListCodeBlock)):
+        arr = p[2].evalv()
+        arr.append(p[0].eval())
+        return ListCodeBlock(arr)
+    else:
+        return ListCodeBlock([p[0].evalv(),p[2].evalv()])
