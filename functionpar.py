@@ -24,3 +24,32 @@ def expression_ifr(p):
                 parser.parsetxt(i)
         else:
             parser.parsetxt(p[2].evalv())
+@pg.production('expression : while expression expression')
+def expression_whiler(p):
+    running = True
+    while(running):
+        if(p[1].evalv() == False):
+            running = False
+        if(isinstance(p[2],typed.ListCodeBlock)):
+            for i in p[2].evalv():
+                parser.parsetxt(i)
+        else:
+            parser.parsetxt(p[2].evalv())
+@pg.production('expression : infinite expression')
+def expression_whiler(p):
+    while(True):
+        if(isinstance(p[1],typed.ListCodeBlock)):
+            for i in p[1].evalv():
+                parser.parsetxt(i)
+        else:
+            parser.parsetxt(p[1].evalv())
+@pg.production('expression : timedloop expression expression')
+def expression_whiler(p):
+    i = 0
+    while(i < p[1].evalv()):
+        if(isinstance(p[2],typed.ListCodeBlock)):
+            for i in p[2].evalv():
+                parser.parsetxt(i)
+        else:
+            parser.parsetxt(p[2].evalv())
+        i = i + 1

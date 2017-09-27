@@ -24,11 +24,11 @@ def expression_multv(p):
 
 @pg.production('expression : expression ifequals expression')
 def expression_bequal(p):
-    return typed.Bool(p[0].evalv() ==  p[2].evalv())
+    return typed.Bool(p[0].evalv() == p[2].evalv())
 
 @pg.production('expression : expression ifgreater expression')
 def expression_bgreat(p):
-    return typed.Bool(p[0].evalv() >  p[2].evalv())
+    return typed.Bool(p[0].evalv() > p[2].evalv())
 
 @pg.production('expression : expression iflesser expression')
 def expression_bless(p):

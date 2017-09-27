@@ -78,13 +78,16 @@ def returntype(val):
 def expression_number(p):
     return Number(int(p[0].getstr()))
 @pg.production('expression : codeblock')
-def expression_parenth(p):
+def expression_codeblock(p):
     st = p[0].getstr()[:-1][1:]
     return CodeBlock(st)
 @pg.production('expression : string')
 def expression_str(p):
     st = p[0].getstr()[:-1][1:]
     return String(st)
+@pg.production('expression : lpar expression rpar')
+def expression_parenthc(p):
+    return p[1]
 @pg.production('expression : true')
 @pg.production('expression : false')
 def expression_bool(p):
