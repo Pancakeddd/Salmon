@@ -7,7 +7,7 @@ from rply import ParserGenerator
 pg = ParserGenerator(
     ['number',
      'equals', 'variablenam','string','plus','minus','mult','divide','codeblock',"colon",
-     'ifequals','ifgreater','iflesser','if','while','infinite','timedloop','lpar','rpar',
+     'ifequals','ifgreater','iflesser','if','while','infinite','timedloop','lpar','rpar','functiondef',
      'ifequalsnot','true','false'
     ]
 )
@@ -21,8 +21,12 @@ def error_handler(token):
 
 
 
-
-
-def parsetxt(text):
+parser = None
+def startparser():
+    global parser
     parser = pg.build()
+def parsetxt(text):
     parser.parse(lexr.l.lex(text))
+
+def parsetxtreturn(text):
+    return parser.parse(lexr.l.lex(text))

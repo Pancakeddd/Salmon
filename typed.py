@@ -95,15 +95,21 @@ def expression_bool(p):
 @pg.production('expression : variablenam')
 def expression_varname(p):
     if(function.getfunction(p[0].getstr()) != None):
-        try:
+        if(isinstance(function.getfunction(p[0].getstr()),function.PycFunction)):
             INPFUNC_SPECIAL_1 = p
             OUTFUNC_SPECIAL_1 = None
             ldict = locals()
             exec(function.getfunction(p[0].getstr()).pyc,None,ldict)
             OUTFUNC_SPECIAL_1 = ldict['OUTFUNC_SPECIAL_1']
-            return returntype(OUTFUNC_SPECIAL_1)
-        except IndexError as e:
-            print("Unexpected amount of arguments")
+            return typed.returntype(OUTFUNC_SPECIAL_1)
+        else:
+            iterv = 1
+            for i in function.getfunction(p[0].getstr()).code:
+                if(len(function.getfunction(p[0].getstr()).code) != iterv):
+                    parser.parsetxt(i)
+                else:
+                    return parser.parsetxtreturn(i)
+                iterv+=1
     else:
         return VariableName(p[0].getstr())
 @pg.production('expression : expression colon expression')

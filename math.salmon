@@ -1,0 +1,2 @@
+fun data {println "hello"}
+fun box {println "|--------|"} : {println "|        |"} : {println "|        |"} : {println "|        |"} : {println "|        |"} : {println "|-------|"}

@@ -1,1 +1,2 @@
-tloop 10 {println "doo"}
+import "math.salmon"
+inf {println "do"}
