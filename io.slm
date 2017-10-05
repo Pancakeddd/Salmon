@@ -1,0 +1,4 @@
+@println  {print(INPFUNC_SPECIAL_1[1].evalv())}|
+@random   {import random;OUTFUNC_SPECIAL_1 = random.randint(INPFUNC_SPECIAL_1[1].evalv(),INPFUNC_SPECIAL_1[2].evalv())}|
+@input    {OUTFUNC_SPECIAL_1 = raw_input(INPFUNC_SPECIAL_1[1].evalv())}|
+@len      {OUTFUNC_SPECIAL_1 = len(INPFUNC_SPECIAL_1[1].evalv())}|

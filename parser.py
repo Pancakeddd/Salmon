@@ -7,7 +7,7 @@ from rply import ParserGenerator
 pg = ParserGenerator(
     ['number',
      'equals', 'variablenam','string','plus','minus','mult','divide','codeblock',"colon",
-     'ifequals','ifgreater','iflesser','if','while','infinite','timedloop','lpar','rpar','functiondef',
+     'ifequals','ifgreater','iflesser','if','while','infinite','timedloop','lpar','rpar','lcod','rcod','functiondef','functionbind',
      'ifequalsnot','true','false'
     ]
 )

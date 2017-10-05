@@ -1,2 +1,2 @@
-import "math.salmon"
-inf {println "do"}
+import "io.slm"
+println len (input "Input text:")
