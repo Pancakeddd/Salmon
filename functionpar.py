@@ -2,6 +2,8 @@ import variable
 import function
 import typed
 import parser
+import random
+import sys
 pg = parser.pg
 @pg.production('expression : variablenam expression')
 @pg.production('expression : variablenam expression expression')
@@ -31,16 +33,14 @@ def expression_runf(p):
                 variable.remvariable(i)
                 itervas+=1
     except AttributeError:
-        raise AttributeError('Unknown Function "{0}"'.format(p[0].getstr()))
+        raise AttributeError('Unknown Function "{0}" at line {1}'.format(p[0].getstr(),parser.linenum))
 
 @pg.production('expression : if expression expression')
 def expression_ifr(p):
+    print (p[1])
     if(p[1].evalv() == True):
-        if(isinstance(p[2],typed.ListCodeBlock)):
-            for i in p[2].evalv():
-                parser.parsetxt(i)
-        else:
-            parser.parsetxt(p[2].evalv())
+        for i in p[2].evalv():
+            parser.parsetxt(i)
 @pg.production('expression : while expression expression')
 def expression_whiler(p):
     running = True

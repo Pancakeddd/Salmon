@@ -7,7 +7,7 @@ class Function():
 class PycFunction():
     def __init__(self, name,pythoncode):
         self.name = name
-        self.pyc = compile(pythoncode, "duddg", 'exec')
+        self.pyc = compile(pythoncode[0], "duddg", 'exec')
 
 functions = {}
 
@@ -17,7 +17,12 @@ def getfunction(name):
     return functions.get(name)
 
 def runfilesal(text):
+    strfinish = ""
     with open(text) as f:
         for line in f:
-            parser.parsetxt(line)
-createfunction(PycFunction("import",'function.runfilesal(INPFUNC_SPECIAL_1[1].evalv())'))
+            strfinish = strfinish + line
+    strfinish = strfinish.replace('\n','')
+    strfinish = strfinish.replace(';','\n')
+    for line in strfinish.splitlines():
+        parser.parsetxt(line)
+createfunction(PycFunction("import",['function.runfilesal(INPFUNC_SPECIAL_1[1].evalv())']))

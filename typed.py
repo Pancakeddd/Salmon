@@ -81,7 +81,13 @@ def expression_number(p):
 def expression_codeblock(p):
     st = p[0].getstr()[1:][:-2]
     st = st.replace("}","}|")
-    return CodeBlock(st)
+    print(st)
+    return ListCodeBlock(st.split(","))
+@pg.production('expression : specialcodeblock')
+def expression_specialcodeblock(p):
+    st = p[0].getstr()[1:][:-2]
+    st = st.replace("}","}/")
+    return ListCodeBlock(st.split(":"))
 @pg.production('expression : string')
 def expression_str(p):
     st = p[0].getstr()[:-1][1:]
@@ -116,11 +122,3 @@ def expression_varname(p):
                 iterv+=1
     else:
         return VariableName(p[0].getstr())
-@pg.production('expression : expression colon expression')
-def expression_colon(p):
-    if (isinstance(p[2],ListCodeBlock)):
-        arr = p[2].evalv()
-        arr.append(p[0].eval())
-        return ListCodeBlock(arr)
-    else:
-        return ListCodeBlock([p[0].evalv(),p[2].evalv()])

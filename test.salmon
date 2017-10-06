@@ -1,2 +1,6 @@
-import "io.slm"
-println len (input "Input text:")
+import "io.slm";
+fun add {numone,numtwo}| {
+  numone + numtwo
+}|;
+println add 5 5
+if
